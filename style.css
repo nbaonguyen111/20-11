@@ -22,6 +22,9 @@ body {
 }
 
 /* ===== Bìa sách ===== */
+@media (max-width:768px){
+
+
 #cover {
   position: fixed;
   inset: 0;
@@ -34,8 +37,8 @@ body {
 
 .book-cover {
   width: 90vw;
-  max-width: 380px;
-  height: 70vh;
+  max-width: none;
+  height: 50vh;
   max-height: 520px;
   background: linear-gradient(145deg, #8B4513, #A0522D);
   border-radius: 20px;
@@ -100,6 +103,7 @@ body {
 @keyframes blink {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }
+}
 }
 
 /* ===== Rotate warning ===== */
