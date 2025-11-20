@@ -1,230 +1,260 @@
-/* Reset */
+/* ===== Reset cơ bản ===== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow: hidden !important;
+}
+
+body {
+  height: 100vh;
+  background: #faf4e6; /* trắng ngà */
+  font-family: 'Playfair Display', serif;
+  color: #333;
+}
+
+/* ===== Ẩn nhật ký lúc chưa mở ===== */
+.hidden {
+  display: none !important;
+}
+
+/* ===== Bìa sách ===== */
+#cover {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.884);
+  z-index: 100;
+}
+
+.book-cover {
+  width: 90vw;
+  max-width: 380px;
+  height: 70vh;
+  max-height: 520px;
+  background: linear-gradient(145deg, #8B4513, #A0522D);
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.4s;
+}
+
+.book-cover:hover {
+  transform: scale(1.03);
+}
+
+.book-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255,255,255,0.05) 10px,
+    rgba(255,255,255,0.05) 20px
+  );
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #FFD700;
+}
+
+.title h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 10vw, 5rem);
+}
+
+.title h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+}
+
+.title p {
+  margin-top: 15px;
+  letter-spacing: 4px;
+}
+
+.blink-text {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1.2rem;
+  animation: blink 2.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ===== Rotate warning ===== */
+#rotate-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  color: white;
+  font-size: 1.4rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 999;
+}
+
+#rotate-screen.show {
+  display: flex;
+}
+
+/* ===== Nhật ký ===== */
+#diary {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fdf6e3;
+  padding: 20px;
+}
+
+.book {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  height: 90vh;
+  max-height: 650px;
+  background: #faf4e6;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.page {
+  flex: 1;
+  padding: 40px 30px;
+  background: linear-gradient(to bottom, #fff 95%, #f0e6d2 100%);
+  overflow: hidden; /* scroll tắt */
+  position: relative;
+}
+
+.left {
+  border-right: 3px dotted #ddd;
+}
+
+/* ===== Hoa và hiệu ứng ===== */
+.flower {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  opacity: 0.3;
+  font-size: 3rem;
+  animation: float 8s infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.big-flower {
+  width: 180px;
+  height: 180px;
+  background-image: url("pngtree-flower-bouquet-png-image_13740304.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 20px auto 0;
+  opacity: 0.9;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ===== Hearts ===== */
+.hearts {
+  text-align: center;
+  font-size: 2.5rem;
+  animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ===== Hoa rơi ===== */
+#petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ===== Responsive Mobile ===== */
+@media (max-width: 768px) {
+  .book {
+    flex-direction: column;
+    width: 95%;
+    height: auto;
+    max-height: none;
+    padding: 10px;
   }
-  
-  html, body {
-    overflow: hidden !important;
+
+  .page {
+    width: 100%;
+    padding: 20px;
+    border-right: none;
+    border-bottom: 2px dotted #ddd;
+    overflow: visible;
+    font-size: 1rem;
   }
-  
-  /* BODY CHUẨN – NỀN TRẮNG NGÀ – KHÔNG GHI ĐÈ LẪN NHAU */
-  body {
-    height: 100vh;
-    background: #faf4e6; /* trắng ngà */
-    font-family: 'Playfair Display', serif; /* font đẹp, sang */
-    color: #333;
+
+  .left .big-flower {
+    width: 120px;
+    height: 120px;
+    margin: 15px auto;
   }
-  
-  /* Ẩn nhật ký */
-  .hidden {
-    display: none !important;
+
+  .title h1 {
+    font-size: 2.5rem;
   }
-  
-  /* Bìa sách */
+
+  .title h2 {
+    font-size: 2rem;
+  }
+
+  .title p {
+    font-size: 1rem;
+  }
+
+  .hearts {
+    font-size: 2rem;
+  }
+
+  .flower {
+    font-size: 2rem;
+  }
+
   #cover {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.884);
-    z-index: 100;
+    width: 95vw;
+    height: auto;
   }
-  
+
   .book-cover {
     width: 90vw;
-    max-width: 380px;
-    height: 70vh;
-    max-height: 520px;
-    background: linear-gradient(145deg, #8B4513, #A0522D);
-    border-radius: 20px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    transition: transform 0.4s;
+    height: 60vh;
   }
-  
-  .book-cover:hover {
-    transform: scale(1.03);
-  }
-  
-  .book-cover::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 10px,
-      rgba(255,255,255,0.05) 10px,
-      rgba(255,255,255,0.05) 20px
-    );
-  }
-  
-  .title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #FFD700;
-  }
-  
-  .title h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(3rem, 10vw, 5rem);
-  }
-  
-  .title h2 {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(2.5rem, 8vw, 4rem);
-  }
-  
-  .title p {
-    margin-top: 15px;
-    letter-spacing: 4px;
-  }
-  
-  .blink-text {
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 1.2rem;
-    animation: blink 2.5s infinite;
-  }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-  
-  /* Rotate warning */
-  #rotate-screen {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.95);
-    color: white;
-    font-size: 1.4rem;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    z-index: 999;
-  }
-  
-  #rotate-screen.show {
-    display: flex;
-  }
-  
-  /* Bên trong nhật ký */
-  #diary {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fdf6e3;
-    padding: 20px;
-  }
-  
-  .book {
-    display: flex;
-    width: 100%;
-    max-width: 900px;
-    height: 90vh;
-    max-height: 650px;
-    background: #faf4e6 !important; /* trắng ngà */
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    border-radius: 15px;
-    overflow: hidden;
-  }
-  
-  .page {
-    flex: 1;
-    padding: 40px 30px;
-    background: linear-gradient(to bottom, #fff 95%, #f0e6d2 100%);
-    overflow-y: hidden;
-    position: relative;
-  }
-  
-  .left {
-    border-right: 3px dotted #ddd;
-  }
-  
-  .flower {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    opacity: 0.3;
-    font-size: 3rem;
-    animation: float 8s infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
-  
-  .photo-frame {
-    width: 160px;
-    height: 160px;
-    margin: 30px auto;
-    background: url('https://i.imgur.com/5tN6GfJ.jpg') center/cover;
-    border: 12px solid white;
-    border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
-  
-  .hearts {
-    text-align: center;
-    font-size: 2.5rem;
-    animation: heartbeat 2s infinite;
-  }
-  
-  @keyframes heartbeat {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-  }
-  
-  /* Hoa rơi */
-  #petals {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 10;
-  }
-  
-  /* Mobile portrait bắt xoay ngang */
-  @media (max-width: 900px) and (orientation: portrait) {
-    #diary, #cover {
-      display: none !important;
-    }
-    #rotate-screen {
-      display: flex !important;
-    }
-  }
-  
-  .big-flower {
-    width: 180px;
-    height: 180px;
-    background-image: url("pngtree-flower-bouquet-png-image_13740304.png"); /* bó hoa PNG đẹp */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 20px auto 0;
-    opacity: 0.9;
-    animation: float 3s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0px); }
-  }
-  
+}
